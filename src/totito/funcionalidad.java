@@ -11,13 +11,14 @@ import java.util.Scanner;
  * @author saman
  */
 public class funcionalidad {
-        private char[][] tablero;
+
+    private char[][] tablero;
     private char jugadorActual;
 
-    public funcionalidad(){
- tablero = new char[3][3];
+    public funcionalidad() {
+        tablero = new char[3][3];
         jugadorActual = 'X';
-        inicializarTablero();}
+    }
 
     private void inicializarTablero() {
         for (int i = 0; i < 3; i++) {
@@ -31,32 +32,47 @@ public class funcionalidad {
         Scanner scanner = new Scanner(System.in);
         boolean juegoActivo = true;
 
-        while (juegoActivo) {
-            mostrarTablero();
-            System.out.println("Turno del jugador " + jugadorActual);
-            System.out.print("Ingrese fila y columna (por ejemplo, 1 1 para la primera fila y la primera columna): ");
-            int fila = scanner.nextInt();
-            int columna = scanner.nextInt();
+        do {
+            juegoActivo = true; 
+            inicializarTablero();
+            while (juegoActivo) {
+                mostrarTablero();
+                System.out.println("Turno del jugador " + jugadorActual);
+                System.out.print("Ingrese fila y columna (por ejemplo, 1 para la primera fila y 1 la primera columna, Dejando un espacio en cada numero): ");
+                int fila = scanner.nextInt();
+                int columna = scanner.nextInt();
 
-            if (fila >= 1 && fila <= 3 && columna >= 1 && columna <= 3 && tablero[fila - 1][columna - 1] == '-') {
-                tablero[fila - 1][columna - 1] = jugadorActual;
-                
-                if (haGanado()) {
-                    mostrarTablero();
-                    System.out.println("¡El jugador " + jugadorActual + " ha ganado!");
-                    juegoActivo = false;
-                } else if (tableroLleno()) {
-                    mostrarTablero();
-                    System.out.println("¡Empate!");
-                    juegoActivo = false;
+                if (fila >= 1 && fila <= 3 && columna >= 1 && columna <= 3 && tablero[fila - 1][columna - 1] == '-') {
+                    tablero[fila - 1][columna - 1] = jugadorActual;
+
+                    if (haGanado()) {
+                        mostrarTablero();
+                        System.out.println("¡El jugador " + jugadorActual + " ha ganado!");
+                        juegoActivo = false;
+
+                    } else if (tableroLleno()) {
+                        mostrarTablero();
+                        System.out.println("¡Empate!");
+                        juegoActivo = false;
+
+                    } else {
+                        cambiarTurno();
+                    }
                 } else {
-                    cambiarTurno();
+                    System.out.println("Movimiento inválido. Inténtalo de nuevo.");
                 }
-            } else {
-                System.out.println("Movimiento inválido. Inténtalo de nuevo.");
+
             }
-        }
+            System.out.print("¿Quieres jugar otra vez? (Si/No): ");
+            String respuesta = scanner.next();
+            if (!respuesta.equalsIgnoreCase("Si")) {
+                juegoActivo = false;
+            } else {
+                juegoActivo = true;
+            }
+        } while (juegoActivo);
         scanner.close();
+        System.out.println("¡Gracias por jugar!");
     }
 
     private void mostrarTablero() {
@@ -78,19 +94,19 @@ public class funcionalidad {
     }
 
     private boolean haGanado() {
-      
+
         for (int i = 0; i < 3; i++) {
             if (tablero[i][0] != '-' && tablero[i][0] == tablero[i][1] && tablero[i][1] == tablero[i][2]) {
                 return true;
             }
         }
-       
+
         for (int j = 0; j < 3; j++) {
             if (tablero[0][j] != '-' && tablero[0][j] == tablero[1][j] && tablero[1][j] == tablero[2][j]) {
                 return true;
             }
         }
-        
+
         if (tablero[0][0] != '-' && tablero[0][0] == tablero[1][1] && tablero[1][1] == tablero[2][2]) {
             return true;
         }
@@ -104,13 +120,11 @@ public class funcionalidad {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (tablero[i][j] == '-') {
-                    return false; 
+                    return false;
                 }
             }
         }
-        return true; 
+        return true;
     }
-
-    
 
 }
