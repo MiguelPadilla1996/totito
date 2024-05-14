@@ -12,18 +12,18 @@ import java.util.Scanner;
  */
 public class funcionalidad {
 
-    private char[][] tablero;
-    private char jugadorActual;
+    private String [][] tablero;
+    private String jugadorActual;
 
     public funcionalidad() {
-        tablero = new char[3][3];
-        jugadorActual = 'X';
+        tablero = new String[3][3];
+        jugadorActual = "|X|";
     }
 
     private void inicializarTablero() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                tablero[i][j] = '-';
+                tablero[i][j] = "|-|";
             }
         }
     }
@@ -42,7 +42,7 @@ public class funcionalidad {
                 int fila = scanner.nextInt();
                 int columna = scanner.nextInt();
 
-                if (fila >= 1 && fila <= 3 && columna >= 1 && columna <= 3 && tablero[fila - 1][columna - 1] == '-') {
+                if (fila >= 1 && fila <= 3 && columna >= 1 && columna <= 3 && tablero[fila - 1][columna - 1] == "|-|") {
                     tablero[fila - 1][columna - 1] = jugadorActual;
 
                     if (haGanado()) {
@@ -86,31 +86,31 @@ public class funcionalidad {
     }
 
     private void cambiarTurno() {
-        if (jugadorActual == 'X') {
-            jugadorActual = 'O';
+        if (jugadorActual == "|X|") {
+            jugadorActual = "|O|";
         } else {
-            jugadorActual = 'X';
+            jugadorActual = "|X|";
         }
     }
 
     private boolean haGanado() {
 
         for (int i = 0; i < 3; i++) {
-            if (tablero[i][0] != '-' && tablero[i][0] == tablero[i][1] && tablero[i][1] == tablero[i][2]) {
+            if (tablero[i][0] != "|-|" && tablero[i][0] == tablero[i][1] && tablero[i][1] == tablero[i][2]) {
                 return true;
             }
         }
 
         for (int j = 0; j < 3; j++) {
-            if (tablero[0][j] != '-' && tablero[0][j] == tablero[1][j] && tablero[1][j] == tablero[2][j]) {
+            if (tablero[0][j] != "|-|" && tablero[0][j] == tablero[1][j] && tablero[1][j] == tablero[2][j]) {
                 return true;
             }
         }
 
-        if (tablero[0][0] != '-' && tablero[0][0] == tablero[1][1] && tablero[1][1] == tablero[2][2]) {
+        if (tablero[0][0] != "|-|" && tablero[0][0] == tablero[1][1] && tablero[1][1] == tablero[2][2]) {
             return true;
         }
-        if (tablero[0][2] != '-' && tablero[0][2] == tablero[1][1] && tablero[1][1] == tablero[2][0]) {
+        if (tablero[0][2] != "|-|" && tablero[0][2] == tablero[1][1] && tablero[1][1] == tablero[2][0]) {
             return true;
         }
         return false;
@@ -119,7 +119,7 @@ public class funcionalidad {
     private boolean tableroLleno() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                if (tablero[i][j] == '-') {
+                if (tablero[i][j] == "|-|") {
                     return false;
                 }
             }
