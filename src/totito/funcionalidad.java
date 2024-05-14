@@ -12,7 +12,7 @@ import java.util.Scanner;
  */
 public class funcionalidad {
 
-    private String [][] tablero;
+    private String[][] tablero;
     private String jugadorActual;
 
     public funcionalidad() {
@@ -33,7 +33,7 @@ public class funcionalidad {
         boolean juegoActivo = true;
 
         do {
-            juegoActivo = true; 
+            juegoActivo = true;
             inicializarTablero();
             while (juegoActivo) {
                 mostrarTablero();
