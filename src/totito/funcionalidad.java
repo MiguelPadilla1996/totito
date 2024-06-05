@@ -16,11 +16,12 @@ public class funcionalidad {
     private String jugadorActual;
 
     public funcionalidad() {
-        tablero = new String[3][3];
-        jugadorActual = "|X|";
+         tablero = new String[3][3];
+        jugadorActual = "X";
+        inicializarTablero();
     }
 
-    private void inicializarTablero() {
+  /* private void inicializarTablero() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 tablero[i][j] = "|-|";
@@ -125,6 +126,71 @@ public class funcionalidad {
             }
         }
         return true;
+    }*/
+    
+
+    public void inicializarTablero() {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                tablero[i][j] = "-";
+            }
+        }
     }
 
+    public String getJugadorActual() {
+        return jugadorActual;
+    }
+
+    public boolean hacerMovimiento(int fila, int columna) {
+        if (fila >= 0 && fila < 3 && columna >= 0 && columna < 3 && tablero[fila][columna].equals("-")) {
+            tablero[fila][columna] = jugadorActual;
+            return true;
+        }
+        return false;
+    }
+
+    public boolean haGanado() {
+        for (int i = 0; i < 3; i++) {
+            if (!tablero[i][0].equals("-") && tablero[i][0].equals(tablero[i][1]) && tablero[i][1].equals(tablero[i][2])) {
+                return true;
+            }
+        }
+        for (int j = 0; j < 3; j++) {
+            if (!tablero[0][j].equals("-") && tablero[0][j].equals(tablero[1][j]) && tablero[1][j].equals(tablero[2][j])) {
+                return true;
+            }
+        }
+        if (!tablero[0][0].equals("-") && tablero[0][0].equals(tablero[1][1]) && tablero[1][1].equals(tablero[2][2])) {
+            return true;
+        }
+        if (!tablero[0][2].equals("-") && tablero[0][2].equals(tablero[1][1]) && tablero[1][1].equals(tablero[2][0])) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean tableroLleno() {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (tablero[i][j].equals("-")) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public void cambiarTurno() {
+        if (jugadorActual.equals("X")) {
+            jugadorActual = "O";
+        } else {
+            jugadorActual = "X";
+        }
+    }
+
+    public String[][] getTablero() {
+        return tablero;
+    }
 }
+
+

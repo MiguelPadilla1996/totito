@@ -14,8 +14,8 @@ public class Totito {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       funcionalidad juego = new funcionalidad();
-        juego.juega();
+       interfaz juego = new interfaz();
+        juego.setVisible(true);
     }
     
 }
